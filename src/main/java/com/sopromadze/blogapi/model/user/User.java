@@ -22,6 +22,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.sopromadze.blogapi.model.report.Report;
 import org.hibernate.annotations.NaturalId;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -100,6 +101,10 @@ public class User extends DateAudit {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Report> reports;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments;
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -110,12 +115,13 @@ public class User extends DateAudit {
 
 	}
 
-	public User(String firstName, String lastName, String username, String email, String password) {
+	public User(String firstName, String lastName, String username, String email, String password, String phone) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.phone = phone;
 	}
 
 	public Long getId() {

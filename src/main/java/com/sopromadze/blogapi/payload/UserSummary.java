@@ -5,12 +5,14 @@ public class UserSummary {
     private String username;
     private String firstName;
     private String lastName;
+    private String phone;
 
-    public UserSummary(Long id, String username, String firstName, String lastName) {
+    public UserSummary(Long id, String username, String firstName, String lastName, String phone) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -43,5 +45,12 @@ public class UserSummary {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `roles`;
 DROP TABLE IF EXISTS `comments`;
 DROP TABLE IF EXISTS `posts`;
+DROP TABLE IF EXISTS `reports`;
 DROP TABLE IF EXISTS `photos`;
 DROP TABLE IF EXISTS `albums`;
 DROP TABLE IF EXISTS `todos`;
@@ -137,6 +138,15 @@ CREATE TABLE `posts` (
   PRIMARY KEY (`id`),
   KEY `fk_user_post` (`user_id`),
   CONSTRAINT `fk_user_post` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `reports` (
+     `id` bigint(19) unsigned NOT NULL AUTO_INCREMENT,
+     `name` varchar(255) NOT NULL,
+     `phone` text NOT NULL,
+     `date`  DATE NOT NULL,
+     `duration` varchar(255) NOT NULL,
+     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `post_tag` (

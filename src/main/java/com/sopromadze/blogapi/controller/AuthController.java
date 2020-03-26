@@ -56,7 +56,7 @@ public class AuthController {
 	@PostMapping("/signin")
 	public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword()));
+				new UsernamePasswordAuthenticationToken(loginRequest.getPhoneOrEmail(), loginRequest.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -73,6 +73,10 @@ public class AuthController {
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			throw new BlogapiException(HttpStatus.BAD_REQUEST, "Email is already taken");
 		}
+
+		if (userRepository.existsByPhone(signUpRequest.getPhone())) {
+			throw new BlogapiException(HttpStatus.BAD_REQUEST, "phone number is already taken");
+		}
 		
 		String firstName = signUpRequest.getFirstName().toLowerCase();
 
@@ -81,10 +85,12 @@ public class AuthController {
 		String username = signUpRequest.getUsername().toLowerCase();
 
 		String email = signUpRequest.getEmail().toLowerCase();
-		
+
+		String phone = signUpRequest.getPhone().toLowerCase();
+
 		String password = passwordEncoder.encode(signUpRequest.getPassword());
 
-		User user = new User(firstName, lastName, username, email, password);
+		User user = new User(firstName, lastName, username, email, password, phone);
 
 		List<Role> roles = new ArrayList<>();
 		
