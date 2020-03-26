@@ -146,7 +146,10 @@ CREATE TABLE `reports` (
      `phone` text NOT NULL,
      `date`  DATE NOT NULL,
      `duration` varchar(255) NOT NULL,
-     PRIMARY KEY (`id`)
+     `user_id` bigint(19) unsigned DEFAULT NULL,
+     PRIMARY KEY (`id`),
+     KEY `fk_user_report` (`user_id`),
+     CONSTRAINT `fk_user_report` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `post_tag` (
